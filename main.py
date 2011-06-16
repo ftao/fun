@@ -2,6 +2,7 @@
 '''api main entrance'''
 import web
 import re
+from fetch import fetch_and_cache
 import urllib2
 
 urls = (
@@ -10,18 +11,12 @@ urls = (
 
 class clean_tyxz:
     def GET(self):
-        url = 'http://donatino.skygate.cn/rss/rss20/21/'
-        f = urllib2.urlopen(url)
-        info = f.info()
-        xml = f.read()
-        f.close()
         web.header('Content-Type', 'text/xml;charset=utf-8')
-        return self.clean(xml)
 
-    def clean(self, xml):
-        def repl_func(match):
-            return chr(int(match.group(1), 16))
-        return re.sub('&#x([a-f0-9]+);', repl_func, xml)
+        url = 'http://donatino.skygate.cn/rss/rss20/21/'
+        cleaned_xml = fetch_and_cache(url)
+
+        return cleaned_xml
 
 app = web.application(urls, globals())
 
