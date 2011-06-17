@@ -41,6 +41,8 @@ def load_cache(path):
     return redis_conn.get(path)
 
 if __name__ == "__main__":
+    import os 
+    os.chdir(os.path.abspath(os.path.dirname(__file__)))
     url = 'http://donatino.skygate.cn/rss/rss20/21/'
     fetch_and_cache(url)
     print 'Fetch and Cache OK'
