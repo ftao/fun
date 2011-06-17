@@ -1,0 +1,2 @@
+#!/bin/sh
+ln -sf ~/data/local_settings.py  ~/current/local_settings.py
